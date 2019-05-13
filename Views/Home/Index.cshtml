@@ -1,0 +1,37 @@
+﻿@model IEnumerable<API_Notification.Models.Notification>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<html>
+<head>
+    <title>Напоминашки</title>
+</head>
+<body>
+    <h3>Напоминания</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Text</td>
+            <td>Date</td>
+            <td>State</td>
+            <td>PhoneNumber</td>
+            <td>Email</td>
+        </tr>
+        @foreach (var not in Model)
+        {
+            <tr>
+                <td>@not.Id</td>
+                <td>@not.Name</td>
+                <td>@not.Text</td>
+                <td>@not.Date</td>
+                <td>@not.State</td>
+                <td>@not.PhoneNumber</td>
+                <td>@not.Email</td>
+                <td><a href="~/Home/Buy/@not.Id">Купить</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
