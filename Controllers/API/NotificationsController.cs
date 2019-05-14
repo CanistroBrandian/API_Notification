@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Notification.Models;
+using API_Notification.Helpers;
 
 namespace API_Notification.Controllers.API
 {
@@ -77,7 +78,7 @@ namespace API_Notification.Controllers.API
                     throw;
                 }
             }
-
+            NotificationScheduleHelper.Intialize(_context);
             return NoContent();
         }
 
@@ -92,7 +93,7 @@ namespace API_Notification.Controllers.API
 
             _context.notifications.Add(notification);
             await _context.SaveChangesAsync();
-
+            NotificationScheduleHelper.Intialize(_context);
             return CreatedAtAction("GetNotification", new { id = notification.Id }, notification);
         }
 
@@ -113,7 +114,7 @@ namespace API_Notification.Controllers.API
 
             _context.notifications.Remove(notification);
             await _context.SaveChangesAsync();
-
+            NotificationScheduleHelper.Intialize(_context);
             return Ok(notification);
         }
 
