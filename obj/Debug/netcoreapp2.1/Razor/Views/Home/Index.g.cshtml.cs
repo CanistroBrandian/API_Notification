@@ -61,7 +61,7 @@ using API_Notification.Models;
             WriteLiteral("\r\n<html>\r\n");
             EndContext();
             BeginContext(113, 47, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7eeabda27137494287ad952d86403ab6", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d8e7a21e5e264e268e8cb90173a5e474", async() => {
                 BeginContext(119, 34, true);
                 WriteLiteral("\r\n    <title>Напоминашки</title>\r\n");
                 EndContext();
@@ -81,7 +81,7 @@ using API_Notification.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(162, 714, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ac99494b98b54daa929bb69fd9517cf9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2ecc89cbd6a94daaa7f1dd2eddc3acde", async() => {
                 BeginContext(168, 266, true);
                 WriteLiteral(@"
     <h3>Напоминания</h3>
@@ -177,7 +177,7 @@ using API_Notification.Models;
                 WriteLiteral("</td>\r\n                <td>");
                 EndContext();
                 BeginContext(779, 39, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "133582a0fc67406cb0c47fab1ef7874f", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c30effe5564c4c86a068738e023c1d53", async() => {
                     BeginContext(808, 6, true);
                     WriteLiteral("Купить");
                     EndContext();

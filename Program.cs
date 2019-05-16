@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using API_Notification.Models;
 using API_Notification.Helpers;
-
+using API_Notification.Interfaces;
 
 namespace API_Notification
 {
@@ -13,13 +13,13 @@ namespace API_Notification
     {
         public static void Main(string[] args)
         {
-            //CreateWebHostBuilder(args).Build().Run();
             var host = CreateWebHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<NotificationContext>();
+                var notificationManager = services.GetRequiredService<INotificationManager>();
                 try
                 {
 
@@ -30,7 +30,7 @@ namespace API_Notification
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
-                NotificationScheduleHelper.Intialize(context);
+                notificationManager.Initilize(context);
             }
 
             host.Run();

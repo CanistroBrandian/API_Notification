@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using API_Notification.Helpers;
+using API_Notification.Interfaces;
+using API_Notification.Models;   // пространство имен моделей
+using API_Notification.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore; // пространство имен EntityFramework
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using API_Notification.Models;   // пространство имен моделей
-using Microsoft.EntityFrameworkCore; // пространство имен EntityFramework
 
 namespace API_Notification
 {
@@ -16,17 +19,15 @@ namespace API_Notification
 
         public IConfiguration Configuration { get; }
 
-        //public void ConfigureServices(IServiceCollection services)
-        //{
-        //    string connection = Configuration.GetConnectionString("DefaultConnection");
-        //    services.AddDbContext<NotificationContext>(options => options.UseSqlServer(connection));
-        //    services.AddMvc();
-        //}
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<NotificationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
+            services.AddSingleton<INotificationService, EmailNotificationServicce>();
+            services.AddSingleton<INotificationService, SmsNotificationService>();
+            services.AddSingleton<INotificationManager, NotificationManager>();
+            services.AddSingleton<INotificationScheduler, NotificationScheduler>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

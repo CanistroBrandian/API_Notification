@@ -1,12 +1,11 @@
-﻿using System;
+﻿using API_Notification.Interfaces;
+using API_Notification.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using API_Notification.Models;
-using API_Notification.Helpers;
 
 namespace API_Notification.Controllers.API
 {
@@ -15,11 +14,17 @@ namespace API_Notification.Controllers.API
     public class NotificationsController : ControllerBase
     {
         private readonly NotificationContext _context;
-
-        public NotificationsController(NotificationContext context)
+        private readonly INotificationManager _notificationManager;
+        private readonly INotificationScheduler _notificationScheduler;
+        public NotificationsController(NotificationContext context,
+            INotificationManager notificationManager,
+            INotificationScheduler notificationScheduler)
         {
             _context = context;
+            _notificationManager = notificationManager;
+            _notificationScheduler = notificationScheduler;
         }
+
 
         // GET: api/Notifications
         [HttpGet]
@@ -60,6 +65,10 @@ namespace API_Notification.Controllers.API
             {
                 return BadRequest();
             }
+            if (!_notificationManager.IsValid(notification))
+            {
+                throw new DivideByZeroException("Невозможно создать напоминание в прошлом");
+            }
 
             _context.Entry(notification).State = EntityState.Modified;
 
@@ -78,7 +87,8 @@ namespace API_Notification.Controllers.API
                     throw;
                 }
             }
-            NotificationScheduleHelper.Intialize(_context);
+            if (_notificationScheduler.CheckIfExists(notification))
+                _notificationScheduler.UpdateScheduler(notification);
             return NoContent();
         }
 
@@ -90,10 +100,14 @@ namespace API_Notification.Controllers.API
             {
                 return BadRequest(ModelState);
             }
+            if (!_notificationManager.IsValid(notification))
+                return BadRequest("Невозможно создать напоминание в прошлом");
 
             _context.notifications.Add(notification);
             await _context.SaveChangesAsync();
-            NotificationScheduleHelper.Intialize(_context);
+            if (!_notificationScheduler.CheckIfExists(notification))
+                _notificationScheduler.AddScheduler(notification);
+
             return CreatedAtAction("GetNotification", new { id = notification.Id }, notification);
         }
 
@@ -111,10 +125,10 @@ namespace API_Notification.Controllers.API
             {
                 return NotFound();
             }
-
+            if (_notificationScheduler.CheckIfExists(notification))
+                _notificationScheduler.DeleteScheduler(notification);
             _context.notifications.Remove(notification);
             await _context.SaveChangesAsync();
-            NotificationScheduleHelper.Intialize(_context);
             return Ok(notification);
         }
 

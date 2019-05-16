@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using API_Notification.Models;
 
-namespace API_Notification.Interface
+namespace API_Notification.Interfaces
 {
-    interface INotificationService
+    public interface INotificationService
     {
-        void SendAsync(Notification notification);
+        Task SendAsync(Notification notification);
     }
 }

@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
 using API_Notification.Models;
-using API_Notification.Interface;
+using API_Notification.Interfaces;
 
 namespace API_Notification.Services
 {
     public class EmailNotificationServicce : INotificationService
     {
-        public void SendAsync(Notification notification)
+        public async Task SendAsync(Notification notification)
         {
             {
                 EmailDetails emailDetails = new EmailDetails();
@@ -33,7 +33,6 @@ namespace API_Notification.Services
                 smtp.Credentials = new NetworkCredential("brovkokosty@gmail.com","gjl_dq_em");
                 smtp.EnableSsl = true;
                 smtp.Send(m);
-                Console.Read();
 
             }
         }
