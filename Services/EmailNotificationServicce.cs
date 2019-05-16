@@ -16,9 +16,9 @@ namespace API_Notification.Services
             {
                 EmailDetails emailDetails = new EmailDetails();
                 // отправитель - устанавливаем адрес и отображаемое в письме имя
-                MailAddress from = new MailAddress(emailDetails.Email, "Notification");
+                MailAddress from = new MailAddress("brovkokosty@gmail.com", "Notification");
                 // кому отправляем
-                MailAddress to = new MailAddress(notification.Email);
+                MailAddress to = new MailAddress("brovkokosty@mail.ru");
                 // создаем объект сообщения
                 MailMessage m = new MailMessage(from, to);
                 // тема письма
@@ -28,9 +28,9 @@ namespace API_Notification.Services
                 // письмо представляет код html
                 m.IsBodyHtml = true;
                 // адрес smtp-сервера и порт, с которого будем отправлять письмо
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 465);
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                 // логин и пароль
-                smtp.Credentials = new NetworkCredential(emailDetails.Email,emailDetails.Pass);
+                smtp.Credentials = new NetworkCredential("brovkokosty@gmail.com","gjl_dq_em");
                 smtp.EnableSsl = true;
                 smtp.Send(m);
                 Console.Read();

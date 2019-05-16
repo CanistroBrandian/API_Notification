@@ -12,9 +12,10 @@ namespace API_Notification.Services
     {
         public void SendAsync(Notification notification)
         {
-
             TwilioAccountDetails twilioAccountDetails = new TwilioAccountDetails();
-            TwilioClient.Init(twilioAccountDetails.AccountSid, twilioAccountDetails.AuthToken);
+            const string sid = "AC5912529f023b71f40103d8ca51720fcc";
+            const string auth = "a6cd92f087cc20db158f34780bd9dc0e";
+            TwilioClient.Init(sid, auth);
             var message = MessageResource.Create(
     body: notification.Text,
     from: new Twilio.Types.PhoneNumber("+12055510531"),

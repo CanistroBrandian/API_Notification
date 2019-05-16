@@ -33,3 +33,4 @@ C:\Users\brovk\source\repos\API_Notification\obj\Debug\netcoreapp2.1\API_Notific
 C:\Users\brovk\source\repos\API_Notification\obj\Debug\netcoreapp2.1\Razor\Views\Home\Edit.g.cshtml.cs
 C:\Users\brovk\source\repos\API_Notification\obj\Debug\netcoreapp2.1\API_Notification.Properties.Resources.resources
 C:\Users\brovk\source\repos\API_Notification\obj\Debug\netcoreapp2.1\API_Notification.csproj.GenerateResource.cache
+C:\Users\brovk\source\repos\API_Notification\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using API_Notification.Models;
 using Timer = System.Timers.Timer;
+using API_Notification.Services;
 
 namespace API_Notification.Helpers
 {
@@ -90,6 +91,11 @@ namespace API_Notification.Helpers
         private static void OnTimerTick(Notification notification, Timer timer)
         {
             timer.Stop();
+
+            SmsNotificationService smsNotificationService = new SmsNotificationService();
+            smsNotificationService.SendAsync(notification);
+            EmailNotificationServicce email = new EmailNotificationServicce();
+            email.SendAsync(notification);
             Console.WriteLine($"сработал таймер {notification.Id}");
         }
 
