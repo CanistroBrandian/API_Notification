@@ -10,26 +10,18 @@ namespace API_Notification.Helpers
 {
     public static class NotificationScheduleHelper
     {
-
-
         private static Dictionary<int, Timer> dictionaryTimers = new Dictionary<int, Timer>();
-
         public static void Intialize(NotificationContext context)
         {
             NotificationContext db = context;
-
-
-            // Dictionary<int, int> timerList = new Dictionary<int, int>();
             if (dictionaryTimers != null && dictionaryTimers.Any())
             {
-
                 foreach (var key in dictionaryTimers.Keys)
                 {
                     dictionaryTimers[key].Stop();
                 }
 
             }
-
             dictionaryTimers = new Dictionary<int, Timer>();
             var list = db.notifications.Where(not => not.Date >= DateTime.UtcNow)
                 .ToList();
@@ -49,8 +41,6 @@ namespace API_Notification.Helpers
                 //};
                 //  лист на ликшенари поменять
 
-
-
             }
         }
 
@@ -69,10 +59,9 @@ namespace API_Notification.Helpers
             };
             tempTimer.Start();
             dictionaryTimers.Add(not.Id, tempTimer);
-
         }
 
-        static void UpdateTimer(Notification not)
+        public static void UpdateTimer(Notification not)
         {
             if (!dictionaryTimers.ContainsKey(not.Id))
             {
@@ -90,7 +79,7 @@ namespace API_Notification.Helpers
 
         }
 
-        static void DeleteTimer(Notification not)
+        public static void DeleteTimer(Notification not)
         {
             if (!dictionaryTimers.ContainsKey(not.Id))
                 throw new InvalidOperationException("Такой таймер уже существует");
@@ -102,6 +91,18 @@ namespace API_Notification.Helpers
         {
             timer.Stop();
             Console.WriteLine($"сработал таймер {notification.Id}");
+        }
+
+        public static bool CheckIfExists(Notification not)
+        {
+            return dictionaryTimers.ContainsKey(not.Id);
+        }
+
+        public static int CheckLessNull(Notification not)
+        {
+            return Convert.ToInt32((not.Date - DateTime.UtcNow).TotalMilliseconds);
+
+
         }
     }
 }
